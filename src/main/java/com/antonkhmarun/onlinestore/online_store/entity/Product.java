@@ -1,19 +1,17 @@
 package com.antonkhmarun.onlinestore.online_store.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @Column(name = "rate")
@@ -21,6 +19,17 @@ public class Product {
 
     @Column(name = "price")
     private double price;
+
+    @Column(name = "category_id")
+    private int category_id;
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
 
     public Product() {
     }
@@ -55,5 +64,16 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", rate=" + rate +
+                ", price=" + price +
+                ", category_id=" + category_id +
+                '}';
     }
 }

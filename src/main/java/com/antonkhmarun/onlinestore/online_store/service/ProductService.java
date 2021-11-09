@@ -10,6 +10,8 @@ public interface ProductService {
 
     public Product getProduct(int id);
 
+    public Product findProductByName(String name);
+
     public void saveProduct(Product product);
 
     public void deleteProduct(int id);
