@@ -37,10 +37,10 @@ public class CartServiceImpl implements CartService {
 //        int cart_id = cart.getId();
 //        int product_id = product.getId();
 //        cartRepository.addProduct(cart_id, product_id);
-//        cart.getProducts().add(product);
-//        cartRepository.save(cart);
+        cart.getProducts().add(product);
+        cartRepository.save(cart);
 //        cartRepository.addProduct(product);
-        cart.addProduct(product);
+//        cart.addProduct(product);
 //        List<Product> products = cart.getProducts();
 //        System.out.println(products);
 //        products.add(product);
