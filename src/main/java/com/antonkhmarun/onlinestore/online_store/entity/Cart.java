@@ -18,24 +18,17 @@ public class Cart {
     @Column(name = "username")
     private String username;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JoinTable(name = "cart_product",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products;
+//    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+//    @JoinTable(name = "cart_product",
+//            joinColumns = @JoinColumn(name = "cart_id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_id"))
+//    private List<Product> products;
+
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "cart_id")
+    private List<CartProduct> cartProducts;
 
     public Cart() {
-    }
-
-    public void addProduct(Product product) {
-        System.out.println(product);
-        System.out.println("_____________________________________");
-        System.out.println("Products: " + products);
-        if(products == null) {
-            products = new ArrayList<>();
-        }
-        products.add(product);
-        System.out.println(products);
     }
 
     public int getId() {
@@ -54,20 +47,20 @@ public class Cart {
         this.username = username;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<CartProduct> getCartProducts() {
+        return cartProducts;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setCartProducts(List<CartProduct> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", products=" + products +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Cart{" +
+//                "id=" + id +
+//                ", username='" + username + '\'' +
+//                ", cartProducts=" + cartProducts +
+//                '}';
+//    }
 }

@@ -1,12 +1,10 @@
 package com.antonkhmarun.onlinestore.online_store.controller;
 
 import com.antonkhmarun.onlinestore.online_store.entity.Cart;
+import com.antonkhmarun.onlinestore.online_store.entity.CartProduct;
 import com.antonkhmarun.onlinestore.online_store.entity.Category;
 import com.antonkhmarun.onlinestore.online_store.entity.Product;
-import com.antonkhmarun.onlinestore.online_store.service.CartService;
-import com.antonkhmarun.onlinestore.online_store.service.CartServiceImpl;
-import com.antonkhmarun.onlinestore.online_store.service.CategoryService;
-import com.antonkhmarun.onlinestore.online_store.service.ProductService;
+import com.antonkhmarun.onlinestore.online_store.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +24,9 @@ public class MyController {
 
     @Autowired
     CartService cartService;
+
+    @Autowired
+    CartProductService cartProductService;
 
     @GetMapping("/")
     public String helloWorld() {
@@ -81,17 +82,23 @@ public class MyController {
         return category;
     }
 
+//    @GetMapping("/cart")
+//    public Cart getCartByUsername() {
+//        Cart cart = cartService.getCartByUsername();
+//        return cart;
+//    }
+
     @GetMapping("/cart")
-    public Cart getCartByUsername() {
-        Cart cart = cartService.getCartByUsername();
-        return cart;
+    public List<Product> getProductsFromCart() {
+        return cartProductService.findProductsByCartId();
     }
 
     @PostMapping("/cart")
     public void addProductInCartByUsername(@RequestBody Product product) {
         System.out.println("Cart post");
         System.out.println("Product: " + product);
-        cartService.addProduct(product);
+//        cartService.addProduct(product);
+        cartProductService.addProduct(product);
     }
 
 //    @DeleteMapping("/cart")
