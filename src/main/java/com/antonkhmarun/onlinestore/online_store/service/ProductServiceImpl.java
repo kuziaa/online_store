@@ -3,8 +3,6 @@ package com.antonkhmarun.onlinestore.online_store.service;
 import com.antonkhmarun.onlinestore.online_store.dao.ProductRepository;
 import com.antonkhmarun.onlinestore.online_store.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,14 +39,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void saveProduct(Product product) {
+    public String saveProduct(Product product) {
 
         String name = product.getName();
         Product productInDB = findProductByName(name);
         if (productInDB != null) {
-            product.setId(productInDB.getId());
+            return "Product " + name + " already exist";
         }
         productRepository.save(product);
+        return "Product " + name + " was added";
     }
 
     @Override

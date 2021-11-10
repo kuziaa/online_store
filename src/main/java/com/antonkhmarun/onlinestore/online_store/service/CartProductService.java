@@ -1,13 +1,14 @@
 package com.antonkhmarun.onlinestore.online_store.service;
 
-import com.antonkhmarun.onlinestore.online_store.entity.Cart;
 import com.antonkhmarun.onlinestore.online_store.entity.Product;
 
-public interface CartService {
+import java.util.List;
 
-    Cart getCartByUsername();
+public interface CartProductService {
 
-    void deleteCartByUsername();
+    List<Product> findProductsByCartId();
 
     void addProduct(Product product);
+
+    void deleteProducts();
 }
