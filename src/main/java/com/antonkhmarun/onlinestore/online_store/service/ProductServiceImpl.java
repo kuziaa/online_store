@@ -16,6 +16,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
+
         return productRepository.findAll();
     }
 
@@ -31,13 +32,27 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    public Product findProductByName(String name) {
+
+        Product product = productRepository.findProductByName(name);
+        return product;
+    }
+
     @Override
-    public void saveProduct(Product product) {
+    public String saveProduct(Product product) {
+
+        String name = product.getName();
+        Product productInDB = findProductByName(name);
+        if (productInDB != null) {
+            return "Product " + name + " already exist";
+        }
         productRepository.save(product);
+        return "Product " + name + " was added";
     }
 
     @Override
     public void deleteProduct(int id) {
+
         productRepository.deleteById(id);
     }
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "carts")
 public class Cart {
 
     @Id
@@ -12,9 +12,12 @@ public class Cart {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "username")
+    private String username;
+
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "cart_id")
+    private List<CartProduct> cartProducts;
 
     public Cart() {
     }
@@ -27,11 +30,19 @@ public class Cart {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public String getUsername() {
+        return username;
     }
 
-    public void setProducts(Product product) {
-        this.product = product;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<CartProduct> getCartProducts() {
+        return cartProducts;
+    }
+
+    public void setCartProducts(List<CartProduct> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 }

@@ -1,19 +1,14 @@
 package com.antonkhmarun.onlinestore.online_store.controller;
 
-import com.antonkhmarun.onlinestore.online_store.entity.Cart;
 import com.antonkhmarun.onlinestore.online_store.entity.Category;
 import com.antonkhmarun.onlinestore.online_store.entity.Product;
-import com.antonkhmarun.onlinestore.online_store.service.CartService;
-import com.antonkhmarun.onlinestore.online_store.service.CartServiceImpl;
-import com.antonkhmarun.onlinestore.online_store.service.CategoryService;
-import com.antonkhmarun.onlinestore.online_store.service.ProductService;
+import com.antonkhmarun.onlinestore.online_store.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/onlineStore")
 public class MyController {
 
     @Autowired
@@ -23,7 +18,12 @@ public class MyController {
     CategoryService categoryService;
 
     @Autowired
-    CartService cartService;
+    CartProductService cartProductService;
+
+    @GetMapping("/")
+    public String helloWorld() {
+        return "Hello World!!!";
+    }
 
     @GetMapping("/products")
     public List<Product> getAllProducts() {
@@ -32,9 +32,9 @@ public class MyController {
     }
 
     @PostMapping("/products")
-    public Product addProduct(@RequestBody Product product) {
-        productService.saveProduct(product);
-        return product;
+    public String addProduct(@RequestBody Product product) {
+
+        return productService.saveProduct(product);
     }
 
     @GetMapping("/categories")
@@ -44,14 +44,28 @@ public class MyController {
     }
 
     @PostMapping("/categories")
-    public Category category(@RequestBody Category category) {
-        categoryService.saveCategory(category);
-        return category;
+    public String addCategory(@RequestBody Category category) {
+
+        return categoryService.saveCategory(category);
+    }
+
+    @GetMapping("/categories/{categoryName}")
+    public Category getCategoryByName(@PathVariable String categoryName) {
+        return categoryService.findCategoryByName(categoryName);
     }
 
     @GetMapping("/cart")
-    public List<Cart> getAllCarts() {
-        List<Cart> carts = cartService.getAllCarts();
-        return carts;
+    public List<Product> getProductsFromCart() {
+        return cartProductService.findProductsByCartId();
+    }
+
+    @PostMapping("/cart")
+    public void addProductInCartByUsername(@RequestBody Product product) {
+        cartProductService.addProduct(product);
+    }
+
+    @DeleteMapping("/cart")
+    public void deleteAllProductsFromCartByUserName() {
+        cartProductService.deleteProducts();
     }
 }

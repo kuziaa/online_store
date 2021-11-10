@@ -16,7 +16,7 @@ public class Category {
     private String name;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private List<Product> products;
 
@@ -46,4 +46,5 @@ public class Category {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
 }

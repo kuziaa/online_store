@@ -31,12 +31,28 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void saveCategory(Category category) {
-        categoryRepository.save(category);
+    public Category findCategoryByName(String name) {
+
+        Category category = categoryRepository.findCategoryByName(name);
+        return category;
+    }
+
+    @Override
+    public String saveCategory(Category category) {
+
+        String name = category.getName();
+        Category categoryInDB = findCategoryByName(name);
+        if (categoryInDB != null) {
+            return "Category " + name + " already exist.";
+        } else {
+            categoryRepository.save(category);
+            return "Category " + name + " was added";
+        }
     }
 
     @Override
     public void deleteCategory(int id) {
+
         categoryRepository.deleteById(id);
     }
 }
