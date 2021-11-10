@@ -1,9 +1,6 @@
 package com.antonkhmarun.onlinestore.online_store.entity;
 
-import org.springframework.security.core.userdetails.User;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,12 +14,6 @@ public class Cart {
 
     @Column(name = "username")
     private String username;
-
-//    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
-//    @JoinTable(name = "cart_product",
-//            joinColumns = @JoinColumn(name = "cart_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id"))
-//    private List<Product> products;
 
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "cart_id")
@@ -54,13 +45,4 @@ public class Cart {
     public void setCartProducts(List<CartProduct> cartProducts) {
         this.cartProducts = cartProducts;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Cart{" +
-//                "id=" + id +
-//                ", username='" + username + '\'' +
-//                ", cartProducts=" + cartProducts +
-//                '}';
-//    }
 }

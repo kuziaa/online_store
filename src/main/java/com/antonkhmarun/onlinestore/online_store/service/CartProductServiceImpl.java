@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class CartProductServiceImpl implements CartProductService {
         Cart cart = cartRepository.findCartByUsername(username);
 
         List<CartProduct> cartProducts = cartProductRepository.findProductsByCartId(cart.getId());
-        List<Product> products = cartProducts.stream().map(cartProduct -> cartProduct.getProduct()).collect(Collectors.toList());
+        List<Product> products = cartProducts.stream().map(CartProduct::getProduct).collect(Collectors.toList());
         return products;
     }
 
@@ -42,5 +43,14 @@ public class CartProductServiceImpl implements CartProductService {
         cartProduct.setProduct(product);
 
         cartProductRepository.save(cartProduct);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProducts() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Cart cart = cartRepository.findCartByUsername(username);
+
+        cartProductRepository.deleteAllByCartId(cart.getId());
     }
 }

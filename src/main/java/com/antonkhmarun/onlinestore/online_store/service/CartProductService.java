@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface CartProductService {
 
-    public List<Product> findProductsByCartId();
+    List<Product> findProductsByCartId();
 
-    public void addProduct(Product product);
+    void addProduct(Product product);
+
+    void deleteProducts();
 }

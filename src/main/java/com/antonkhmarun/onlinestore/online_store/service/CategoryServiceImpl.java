@@ -2,7 +2,6 @@ package com.antonkhmarun.onlinestore.online_store.service;
 
 import com.antonkhmarun.onlinestore.online_store.dao.CategoryRepository;
 import com.antonkhmarun.onlinestore.online_store.entity.Category;
-import com.antonkhmarun.onlinestore.online_store.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,14 +38,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void saveCategory(Category category) {
+    public String saveCategory(Category category) {
 
         String name = category.getName();
         Category categoryInDB = findCategoryByName(name);
         if (categoryInDB != null) {
-            category.setId(categoryInDB.getId());
+            return "Category " + name + " already exist.";
         } else {
             categoryRepository.save(category);
+            return "Category " + name + " was added";
         }
     }
 

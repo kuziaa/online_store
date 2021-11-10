@@ -10,11 +10,11 @@ public class CartProduct {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne()//cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne()
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne()//cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne()
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
@@ -43,13 +43,5 @@ public class CartProduct {
 
     public void setCart(Cart cart) {
         this.cart = cart;
-    }
-
-    @Override
-    public String toString() {
-        return "CartProduct{" +
-                "id=" + id +
-                ", product=" + product +
-                '}';
     }
 }

@@ -5,9 +5,9 @@ import com.antonkhmarun.onlinestore.online_store.entity.Product;
 
 public interface CartService {
 
-    public Cart getCartByUsername();
+    Cart getCartByUsername();
 
-    public void deleteCartByUsername();
+    void deleteCartByUsername();
 
-    public void addProduct(Product product);
+    void addProduct(Product product);
 }
